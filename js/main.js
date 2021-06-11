@@ -1,3 +1,26 @@
+//Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
+function getRandomFloatInclusive(min, max, charactersNumber) {
+  if (min > max || min < 0) {
+    throw new Error('задан неверный диапазон');
+  }
+  let randomFloat = Math.random() * (max - min + 1) + min;
+  const charactersCount = Math.pow(10, charactersNumber);
+  randomFloat = Math.floor(randomFloat * charactersCount) / charactersCount;
+  return randomFloat;
+}
+
+//Функция, возвращающая случайное целое число из переданного диапазона включительно.
+//источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomIntInclusive(min, max) {
+  if (min > max || min < 0) {
+    throw new Error('задан неверный диапазон');
+  }
+  min = Math.ceil(min); //округляет число вверх
+  max = Math.floor(max); //округляет число вниз
+  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+}
+
+
 const TITLES = [
   'Заголовок 1',
   'Заголовок 2',
@@ -9,7 +32,7 @@ const TITLES = [
   'Заголовок 8',
   'Заголовок 9',
   'Заголовок 10',
-]
+];
 
 const APART_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 
@@ -28,18 +51,18 @@ const DESCRIPTION = [
   'Описание 8',
   'Описание 9',
   'Описание 10',
-]
+];
 
 const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-]
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
 
 const createSimilarAd = () => {
   let userAvatarCount = getRandomIntInclusive(1, 10);
   if (userAvatarCount < 10) {
-    userAvatarCount = String('0' + userAvatarCount);
+    userAvatarCount = `0${userAvatarCount}`;
   }
   //title, строка — заголовок предложения. Придумайте самостоятельно.
   const randomTitleIndex = getRandomIntInclusive(0, TITLES.length - 1);
@@ -73,17 +96,17 @@ const createSimilarAd = () => {
   //Значения не должны повторяться.
   const featuresArrayLength = getRandomIntInclusive(1, FEATURES.length);
   const featuresGenerated = new Array(featuresArrayLength);
-  for (let i = 0; i < featuresArrayLength; i++) {
+  for (let idx = 0; idx < featuresArrayLength; idx++) {
     const randomFeaturesIndex = getRandomIntInclusive(0, FEATURES.length - 1);
-    featuresGenerated[i] = FEATURES[randomFeaturesIndex];
+    featuresGenerated[idx] = FEATURES[randomFeaturesIndex];
   }
 
   function unique() {
-    let featuresUnique = [];
+    const featuresUnique = [];
 
-    for (let i = 0; i < featuresArrayLength; i++) {
-      if (!featuresUnique.includes(featuresGenerated[i])) {
-        featuresUnique.push(featuresGenerated[i]);
+    for (let idx = 0; idx < featuresArrayLength; idx++) {
+      if (!featuresUnique.includes(featuresGenerated[idx])) {
+        featuresUnique.push(featuresGenerated[idx]);
       }
     }
     return featuresUnique;
@@ -95,19 +118,19 @@ const createSimilarAd = () => {
   //photos, массив строк — массив случайной длины из значений: https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg.
   const photosArrayLength = getRandomIntInclusive(1, 10);
   const photosGenerated = new Array(photosArrayLength);
-  for (let i = 0; i < photosArrayLength; i++) {
+  for (let idx = 0; idx < photosArrayLength; idx++) {
     const randomPhotosIndex = getRandomIntInclusive(0, PHOTOS.length - 1);
-    photosGenerated[i] = PHOTOS[randomPhotosIndex];
+    photosGenerated[idx] = PHOTOS[randomPhotosIndex];
   }
 
-    return {
+  return {
     author: {
-      avatar: 'img/avatars/' + userAvatarCount + '.png'
+      avatar: `img/avatars/${  userAvatarCount  }.png`,
     },
 
     offer: {
       title: TITLES[randomTitleIndex],
-      address: latitude + ', ' + longitude,
+      address: `${latitude  }, ${  longitude}`,
       price: randomPrice,
       type: APART_TYPE[randomApartTypeIndex],
       rooms: roomsCount,
@@ -121,34 +144,12 @@ const createSimilarAd = () => {
 
     location: {
       lat: latitude,
-      lng: longitude
-    }
+      lng: longitude,
+    },
 
-  }
-}
-
-//Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
-function getRandomFloatInclusive(min, max, charactersNumber) {
-  if (min > max || min < 0) {
-    throw new Error('задан неверный диапазон');
-  }
-  let randomFloat = Math.random() * (max - min + 1) + min;
-  charactersCount = Math.pow(10, charactersNumber);
-  randomFloat = Math.floor(randomFloat * charactersCount) / charactersCount;
-  return randomFloat;
-}
-
-//Функция, возвращающая случайное целое число из переданного диапазона включительно.
-//источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandomIntInclusive(min, max) {
-  if (min > max || min < 0) {
-    throw new Error('задан неверный диапазон');
-  }
-  min = Math.ceil(min); //округляет число вверх
-  max = Math.floor(max); //округляет число вниз
-  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
+  };
+};
 
 const SIMILAR_AD_COUNT = 10;
+// eslint-disable-next-line no-unused-vars
 const similarAds = new Array(SIMILAR_AD_COUNT).fill(null).map(() => createSimilarAd());
-console.log(similarAds);
