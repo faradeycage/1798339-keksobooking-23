@@ -74,13 +74,13 @@ const createSimilarAd = () => {
     userAvatarCount = `0${userAvatarCount}`;
   }
   //title, строка — заголовок предложения. Придумайте самостоятельно.
-  const randomTitleIndex = getRandomItem(TITLES);
+
 
   //price, число — стоимость. Случайное целое положительное число.
   const randomPrice = getRandomIntInclusive(1000, 100000);
 
   //type, строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
-  const randomApartTypeIndex = getRandomItem(APPARTS_TYPE);
+
 
   //address, строка — адрес предложения.
   //Для простоты пусть пока составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
@@ -105,8 +105,7 @@ const createSimilarAd = () => {
 
   //checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
   //checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-  const randomCheckInIndex = getRandomIntInclusive(0, CHECK_IN_OUT_TIMES.length - 1);
-  const randomCheckOutIndex = getRandomIntInclusive(0, CHECK_IN_OUT_TIMES.length - 1);
+
 
   //features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner.
   //Значения не должны повторяться.
@@ -129,7 +128,7 @@ const createSimilarAd = () => {
   }
 
   //description, строка — описание помещения. Придумайте самостоятельно.
-  const randomDescriptionIndex = getRandomIntInclusive(1, DESCRIPTIONS.length - 1);
+
 
   //photos, массив строк — массив случайной длины из значений: https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg.
   const photosArrayLength = getRandomIntInclusive(1, 10);
@@ -170,4 +169,4 @@ const SIMILAR_AD_COUNT = 10;
 // eslint-disable-next-line no-unused-vars
 const similarAds = new Array(SIMILAR_AD_COUNT).fill(null).map(() => createSimilarAd());
 
-console.log(JSON.stringify(similarAds));
+console.log(similarAds);
