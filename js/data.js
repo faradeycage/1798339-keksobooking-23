@@ -118,8 +118,6 @@ const createSimilarAd = () => ({
   location: getLocation(),
 });
 
-
-
 const getAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createSimilarAd());
 
 export {getAds};
