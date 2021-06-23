@@ -3,6 +3,15 @@ import {getRandomIntInclusive, getRandomFloatInclusive, getRandomItem} from './u
 
 const SIMILAR_ADS_COUNT = 10;
 
+const MIN_LNG = 139.70000;
+const MAX_LNG = 139.80000;
+const MIN_LNT = 35.65000;
+const MAX_LNT = 35.70000;
+
+const MAX_ROOMS_COUNT = 10;
+
+const MAX_GUESTS_COUNT = 10;
+
 const TITLES = [
   'Заголовок 1',
   'Заголовок 2',
@@ -41,24 +50,6 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
-const randomPrice = getRandomIntInclusive(1000, 100000);
-
-const MIN_LNG = 139.70000;
-const MAX_LNG = 139.80000;
-const MIN_LNT = 35.65000;
-const MAX_LNT = 35.70000;
-
-const latitude = getRandomFloatInclusive(MIN_LNT, MAX_LNT, 5);
-const longitude = getRandomFloatInclusive(MIN_LNG, MAX_LNG, 5);
-
-const MAX_ROOMS_COUNT = 10;
-const roomsCount = getRandomIntInclusive(1, MAX_ROOMS_COUNT);
-
-const MAX_GUESTS_COUNT = 10;
-const guestsCount = getRandomIntInclusive(1, MAX_GUESTS_COUNT);
-
-const photosArrayLength = getRandomIntInclusive(1, 10);
-
 const getUniqueFeatures = () => {
   const featuresArrayLength = getRandomIntInclusive(1, FEATURES.length);
   const featuresGenerated = new Array(featuresArrayLength);
@@ -77,11 +68,14 @@ const getUniqueFeatures = () => {
   return featuresUnique;
 };
 
-const photosGenerated = new Array(photosArrayLength);
-for (let idx = 0; idx < photosArrayLength; idx++) {
-  const randomPhotosIndex = getRandomIntInclusive(0, PHOTOS.length - 1);
-  photosGenerated[idx] = PHOTOS[randomPhotosIndex];
-}
+const getPhotos = () => {
+  const photosArrayLength = getRandomIntInclusive(1, 10);
+  const photosGenerated = new Array(photosArrayLength);
+  for (let idx = 0; idx < photosArrayLength; idx++) {
+    const randomPhotosIndex = getRandomIntInclusive(0, PHOTOS.length - 1);
+    photosGenerated[idx] = PHOTOS[randomPhotosIndex];
+  }
+};
 
 const getAvatar = () => {
   let userAvatarCount = getRandomIntInclusive(1, 10);
@@ -91,31 +85,33 @@ const getAvatar = () => {
   return `img/avatars/${userAvatarCount}.png`;
 };
 
+let latitude;
+let longitude;
 const getLocation = () => ({
-  lat: latitude,
-  lng: longitude,
+  lat: latitude = getRandomFloatInclusive(MIN_LNT, MAX_LNT, 5),
+  lng: longitude = getRandomFloatInclusive(MIN_LNG, MAX_LNG, 5),
 });
 
 const getOffer = () => ({
   title: getRandomItem(TITLES),
   address: `${latitude}, ${longitude}`,
-  price: randomPrice,
+  price: getRandomIntInclusive(1000, 100000),
   type: getRandomItem(APPARTS_TYPE),
-  rooms: roomsCount,
-  guests: guestsCount,
+  rooms: getRandomIntInclusive(1, MAX_ROOMS_COUNT),
+  guests: getRandomIntInclusive(1, MAX_GUESTS_COUNT),
   checkin: getRandomItem(CHECK_IN_OUT_TIMES),
   checkout: getRandomItem(CHECK_IN_OUT_TIMES),
   features: getUniqueFeatures(),
   description: getRandomItem(DESCRIPTIONS),
-  photos: photosGenerated,
+  photos: getPhotos(),
 });
 
 const createSimilarAd = () => ({
   author: {
     avatar: getAvatar(),
   },
-  offer: getOffer(),
   location: getLocation(),
+  offer: getOffer(),
 });
 
 const getAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createSimilarAd());
