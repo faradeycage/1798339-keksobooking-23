@@ -75,6 +75,7 @@ const getPhotos = () => {
     const randomPhotosIndex = getRandomIntInclusive(0, PHOTOS.length - 1);
     photosGenerated[idx] = PHOTOS[randomPhotosIndex];
   }
+  return photosGenerated;
 };
 
 const getAvatar = () => {
@@ -85,16 +86,14 @@ const getAvatar = () => {
   return `img/avatars/${userAvatarCount}.png`;
 };
 
-let latitude;
-let longitude;
 const getLocation = () => ({
-  lat: latitude = getRandomFloatInclusive(MIN_LNT, MAX_LNT, 5),
-  lng: longitude = getRandomFloatInclusive(MIN_LNG, MAX_LNG, 5),
+  lat: getRandomFloatInclusive(MIN_LNT, MAX_LNT, 5),
+  lng: getRandomFloatInclusive(MIN_LNG, MAX_LNG, 5),
 });
 
-const getOffer = () => ({
+const getOffer = (location) => ({
   title: getRandomItem(TITLES),
-  address: `${latitude}, ${longitude}`,
+  address: `${location.lat}, ${location.lng}`,
   price: getRandomIntInclusive(1000, 100000),
   type: getRandomItem(APPARTS_TYPE),
   rooms: getRandomIntInclusive(1, MAX_ROOMS_COUNT),
@@ -106,13 +105,16 @@ const getOffer = () => ({
   photos: getPhotos(),
 });
 
-const createSimilarAd = () => ({
-  author: {
-    avatar: getAvatar(),
-  },
-  location: getLocation(),
-  offer: getOffer(),
-});
+const createSimilarAd = () => {
+  const location = getLocation();
+  return {
+    author: {
+      avatar: getAvatar(),
+    },
+    location: location,
+    offer: getOffer(location),
+  };
+};
 
 const getAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createSimilarAd());
 
