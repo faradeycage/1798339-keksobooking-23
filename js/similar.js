@@ -96,10 +96,10 @@ mapCanvas.appendChild(description);
 const photosTemplate = template.querySelector('.popup__photos');
 const photos = photosTemplate.cloneNode(false);
 
-for (let i =0; i < info[1].offer.photos.length; i++) {
+for (let idx =0; idx < info[1].offer.photos.length; idx++) {
   const photoTpl = template.querySelector('.popup__photo');
   const photo = photoTpl.cloneNode(true);
-  photo.src = info[1].offer.photos[i];
+  photo.src = info[1].offer.photos[idx];
   photos.appendChild(photo);
 }
 if (photos === ''){
