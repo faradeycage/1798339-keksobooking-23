@@ -1,4 +1,7 @@
 import {getAds} from './data.js';
+import {renderAd} from './renderAd.js';
 
-// eslint-disable-next-line no-unused-vars
+
 const similarAds = getAds();
+renderAd(similarAds[0]);
+

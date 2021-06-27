@@ -83,7 +83,7 @@ const getAvatar = () => {
   if (userAvatarCount < 10) {
     userAvatarCount = `0${userAvatarCount}`;
   }
-  return `img/avatars/${userAvatarCount}.png`;
+  return `img/avatars/user${userAvatarCount}.png`;
 };
 
 const getLocation = () => ({
