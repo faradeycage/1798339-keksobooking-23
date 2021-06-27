@@ -1,5 +1,5 @@
 import {getAds} from './data.js';
-import {renderAd} from './renderAds.js';
+import {renderAd} from './renderAd.js';
 
 
 const similarAds = getAds();
