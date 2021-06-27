@@ -1,3 +1,11 @@
+const OFFER_TYPES = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  hotel: 'Отель',
+  house: 'Дом',
+};
+
 const renderAd = (info) => {
   //Выведите заголовок объявления offer.title в заголовок .popup__title.
   const template = document.querySelector('#card').content.cloneNode(true);
@@ -33,13 +41,7 @@ const renderAd = (info) => {
   */
   const popupType = template.querySelector('.popup__type');
 
-  const OFFER_TYPES = {
-    palace: 'Дворец',
-    flat: 'Квартира',
-    bungalow: 'Бунгало',
-    hotel: 'Отель',
-    house: 'Дом',
-  };
+
   const typeInRussian = OFFER_TYPES[info.offer.type];
 
   popupType.textContent = typeInRussian;
