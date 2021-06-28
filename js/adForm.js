@@ -55,10 +55,11 @@ const adFormValidate = () => {
         }
       }
     } else {
-      for (let idx = 0; idx < capacityOptions.length - 1; idx++) {
+      for (let idx = 0; idx < capacityOptions.length -1; idx++) {
         const option = capacityOptions[idx];
         option.disabled = true;
       }
+      capacityOptions[3].disabled = false;
     }
   };
   onRoomNumberChange();
