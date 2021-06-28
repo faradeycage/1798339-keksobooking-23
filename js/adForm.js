@@ -21,7 +21,7 @@ const adFormValidate = () => {
   //Цена за ночь:
   //Обязательное поле;
   //Числовое поле;
-  //Максимальное значение — 1 000 000.
+  //Максимальное значение — 1000000.
   const MAX_PRICE = 1000000;
   const adPriceInput = document.querySelector('#price');
   adPriceInput.addEventListener('input', () => {
