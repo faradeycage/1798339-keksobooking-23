@@ -60,7 +60,7 @@ const formPageDisable = () => {
   adForm.classList.add('ad-form--disabled');
   //Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
   document.querySelector('#title').disabled = true;
-  const adFormElements =  Array.from(document.querySelectorAll('.ad-form__element'));
+  const adFormElements =  Array.from(adForm.querySelectorAll('.ad-form__element'));
   for (const element of adFormElements){
     element.disabled = true;
   }
@@ -69,12 +69,12 @@ const formPageDisable = () => {
   const mapFilters = document.querySelector('.map__filters');
   mapFilters.classList.add('map__filters--disabled');
 
-  const mapFilterElements = Array.from(document.querySelectorAll('.map__filter'));
+  const mapFilterElements = Array.from(mapFilters.querySelectorAll('.map__filter'));
   for (const element of mapFilterElements){
     element.disabled = true;
   }
 
-  document.querySelector('#housing-features').disabled = true;
+  mapFilters.querySelector('#housing-features').disabled = true;
 };
 
 const formPageActivate = () => {
@@ -82,8 +82,8 @@ const formPageActivate = () => {
   const adForm = document.querySelector('.ad-form');
   adForm.classList.remove('ad-form--disabled');
   //Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
-  document.querySelector('#title').disabled = false;
-  const adFormElements =  Array.from(document.querySelectorAll('.ad-form__element'));
+  adForm.querySelector('#title').disabled = false;
+  const adFormElements =  Array.from(adForm.querySelectorAll('.ad-form__element'));
   for (const element of adFormElements){
     element.disabled = false;
   }
@@ -92,12 +92,12 @@ const formPageActivate = () => {
   const mapFilters = document.querySelector('.map__filters');
   mapFilters.classList.remove('map__filters--disabled');
 
-  const mapFilterElements = Array.from(document.querySelectorAll('.map__filter'));
+  const mapFilterElements = Array.from(mapFilters.querySelectorAll('.map__filter'));
   for (const element of mapFilterElements){
     element.disabled = false;
   }
 
-  document.querySelector('#housing-features').disabled = false;
+  mapFilters.querySelector('#housing-features').disabled = false;
 };
 
 export {
