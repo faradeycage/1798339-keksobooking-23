@@ -1,10 +1,20 @@
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE = 1000000;
+
+const ALLOWED_GUESTS_FOR_ROOMS = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
+};
+
 const adFormValidate = () => {
   //Заголовок объявления:
   //Обязательное текстовое поле;
   //Минимальная длина — 30 символов;
   //Максимальная длина — 100 символов.
-  const MIN_TITLE_LENGTH = 30;
-  const MAX_TITLE_LENGTH = 100;
+
   const adTitleInput = document.querySelector('#title');
   adTitleInput.addEventListener('input', () => {
     const valueLength = adTitleInput.value.length;
@@ -22,7 +32,7 @@ const adFormValidate = () => {
   //Обязательное поле;
   //Числовое поле;
   //Максимальное значение — 1000000.
-  const MAX_PRICE = 1000000;
+
   const adPriceInput = document.querySelector('#price');
   adPriceInput.addEventListener('input', () => {
     const value = adPriceInput.value;
@@ -44,27 +54,43 @@ const adFormValidate = () => {
 
   const onRoomNumberChange = () => {
     const capacityOptions = Array.from(capacity.children);
-    if (roomNumber.value !== '100') {
-      const until = parseInt(roomNumber.value, 10);
-      for (let idx = 0; idx < capacityOptions.length; idx++) {
-        const option = capacityOptions[idx];
-        if (idx < until) {
-          option.disabled = false;
-        } else {
-          option.disabled = true;
-        }
-      }
-    } else {
-      for (let idx = 0; idx < capacityOptions.length -1; idx++) {
-        const option = capacityOptions[idx];
-        option.disabled = true;
-      }
+
+    if (roomNumber.value === '1') {
+      capacityOptions[0].disabled = true;
+      capacityOptions[1].disabled = true;
+      capacityOptions[2].disabled = false;
+      capacityOptions[3].disabled = true;
+    }
+
+    if (roomNumber.value === '2') {
+      capacityOptions[0].disabled = true;
+      capacityOptions[1].disabled = false;
+      capacityOptions[2].disabled = false;
+      capacityOptions[3].disabled = true;
+    }
+
+    if (roomNumber.value === '3') {
+      capacityOptions[0].disabled = false;
+      capacityOptions[1].disabled = false;
+      capacityOptions[2].disabled = false;
+      capacityOptions[3].disabled = true;
+    }
+
+    if (roomNumber.value === '100') {
+      capacityOptions[0].disabled = true;
+      capacityOptions[1].disabled = true;
+      capacityOptions[2].disabled = true;
       capacityOptions[3].disabled = false;
     }
+    const allowedGuests = ALLOWED_GUESTS_FOR_ROOMS[roomNumber.value];
+    if(!allowedGuests.includes(capacity.value)) {
+      capacity.value = allowedGuests[0];
+    }
   };
-  onRoomNumberChange();
-
   roomNumber.addEventListener('change', onRoomNumberChange);
+  roomNumber.dispatchEvent(new Event('change'));
 };
 
-export {adFormValidate};
+export {
+  adFormValidate
+};
