@@ -52,6 +52,56 @@ const adFormValidate = () => {
   roomNumber.dispatchEvent(new Event('change'));
 };
 
+//Реализуйте с помощью JavaScript (удобнее функцией!) перевод страницы в неактивное состояние. Все пункты, кроме первого про карту.
+
+const formPageDisable = () => {
+  //Форма заполнения информации об объявлении .ad-form содержит класс ad-form--disabled;
+  const adForm = document.querySelector('.ad-form');
+  adForm.classList.add('ad-form--disabled');
+  //Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
+  document.querySelector('#title').disabled = true;
+  const adFormElements =  Array.from(adForm.querySelectorAll('.ad-form__element'));
+  for (const element of adFormElements){
+    element.disabled = true;
+  }
+
+  //Форма с фильтрами .map__filters заблокирована так же, как и форма .ad-form — на форму добавлен специальный класс, а на её интерактивные элементы атрибуты disabled;
+  const mapFilters = document.querySelector('.map__filters');
+  mapFilters.classList.add('map__filters--disabled');
+
+  const mapFilterElements = Array.from(mapFilters.querySelectorAll('.map__filter'));
+  for (const element of mapFilterElements){
+    element.disabled = true;
+  }
+
+  mapFilters.querySelector('#housing-features').disabled = true;
+};
+
+const formPageActivate = () => {
+  //Форма заполнения информации об объявлении .ad-form содержит класс ad-form--disabled;
+  const adForm = document.querySelector('.ad-form');
+  adForm.classList.remove('ad-form--disabled');
+  //Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
+  adForm.querySelector('#title').disabled = false;
+  const adFormElements =  Array.from(adForm.querySelectorAll('.ad-form__element'));
+  for (const element of adFormElements){
+    element.disabled = false;
+  }
+
+  //Форма с фильтрами .map__filters заблокирована так же, как и форма .ad-form — на форму добавлен специальный класс, а на её интерактивные элементы атрибуты disabled;
+  const mapFilters = document.querySelector('.map__filters');
+  mapFilters.classList.remove('map__filters--disabled');
+
+  const mapFilterElements = Array.from(mapFilters.querySelectorAll('.map__filter'));
+  for (const element of mapFilterElements){
+    element.disabled = false;
+  }
+
+  mapFilters.querySelector('#housing-features').disabled = false;
+};
+
 export {
-  adFormValidate
+  adFormValidate,
+  formPageDisable,
+  formPageActivate
 };
