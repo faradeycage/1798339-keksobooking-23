@@ -6,7 +6,7 @@ const OFFER_TYPES = {
   house: 'Дом',
 };
 
-const renderAd = (info) => {
+const createAdPopup = (info) => {
   const template = document.querySelector('#card').content.cloneNode(true);
 
   //Выведите заголовок объявления offer.title в заголовок .popup__title.
@@ -111,5 +111,5 @@ const renderAd = (info) => {
 
 };
 export {
-  renderAd
+  createAdPopup
 };

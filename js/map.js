@@ -1,16 +1,16 @@
 import {
   formPageActivate
-} from './adForm.js';
+} from './ad-form.js';
 
 import {
   getAds
 } from './data.js';
 
 import {
-  renderAd
-} from './renderAd.js';
+  createAdPopup
+} from './create-ad-popup.js';
 
-const showMap = () => {
+const showMap = (ads) => {
   const map = L.map('map-canvas')
     .on('load', () => {
       formPageActivate();
@@ -54,14 +54,7 @@ const showMap = () => {
     iconAnchor: [26, 52],
   });
 
-  const createCustomPopup = (point) => {
-    const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
-    let popupElement = balloonTemplate.cloneNode(true);
-    popupElement = renderAd(point);
-    return popupElement;
-  };
-
-  const ads = getAds();
+  getAds(ads);
   for (const ad of ads) {
     const adPinMarker = L.marker({
       lat: ad.location.lat,
@@ -74,9 +67,8 @@ const showMap = () => {
 
     adPinMarker
       .addTo(map)
-      .bindPopup(() => createCustomPopup(ad));
+      .bindPopup(() => createAdPopup(ad));
   }
-}
+};
 
-export
-{showMap};
+export {showMap};
