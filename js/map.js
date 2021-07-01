@@ -48,13 +48,11 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${lat  }, ${  lng}`;
 });
 
-const getData = getAds();
 const adPinIcon = L.icon({
   iconUrl: 'img/pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
-
 
 const createCustomPopup = (point) => {
   const balloonTemplate = document.querySelector('#card').content.querySelector('.popup');
@@ -63,10 +61,11 @@ const createCustomPopup = (point) => {
   return popupElement;
 };
 
-for (let idx = 0; idx < getData.length; idx++) {
+const ads = getAds();
+for (const ad of ads) {
   const adPinMarker = L.marker({
-    lat: getData[idx].location.lat,
-    lng: getData[idx].location.lng,
+    lat: ad.location.lat,
+    lng: ad.location.lng,
   }, {
     icon: adPinIcon,
   }, {
@@ -75,6 +74,6 @@ for (let idx = 0; idx < getData.length; idx++) {
 
   adPinMarker
     .addTo(map)
-    .bindPopup(createCustomPopup(getData[idx]));
-
+    .bindPopup(() => createCustomPopup(ad));
 }
+
