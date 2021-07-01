@@ -69,6 +69,8 @@ for (let idx = 0; idx < getData.length; idx++) {
     lng: getData[idx].location.lng,
   }, {
     icon: adPinIcon,
+  }, {
+    keepInView: true,
   });
 
   adPinMarker
