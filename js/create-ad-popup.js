@@ -6,11 +6,10 @@ const OFFER_TYPES = {
   house: 'Дом',
 };
 
-const renderAd = (info) => {
-  //Выведите заголовок объявления offer.title в заголовок .popup__title.
+const createAdPopup = (info) => {
   const template = document.querySelector('#card').content.cloneNode(true);
-  const mapCanvas = document.querySelector('.map__canvas');
 
+  //Выведите заголовок объявления offer.title в заголовок .popup__title.
   const popupTitle = template.querySelector('.popup__title');
   popupTitle.textContent = info.offer.title;
   //Отрисуйте один из сгенерированных DOM-элементов, например первый, в блок #map-canvas, чтобы проверить, что данные в разметку были вставлены корректно.
@@ -108,9 +107,9 @@ const renderAd = (info) => {
     popupAvatar.classList.add('hidden');
   }
 
-  mapCanvas.appendChild(template);
+  return template;
 
 };
 export {
-  renderAd
+  createAdPopup
 };
