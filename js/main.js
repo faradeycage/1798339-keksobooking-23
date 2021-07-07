@@ -2,24 +2,27 @@ import {
   adFormValidate,
   formPageDisable,
   setAdFormSubmit,
-  clearAdForm
+  resetAdForm
 } from './ad-form.js';
+import {
+  getAds
+} from './server.js';
 import {
   showMap
 } from './map.js';
+import {
+  showAlertError
+} from './utils.js';
 
+getAds()
+  .then((data) => showMap(data))
 
-fetch('https://23.javascript.pages.academy/keksobooking/data')
-  .then((response) => response.json())
-  .then((data) => {
-    showMap(data);
-  })
   .catch(() => {
-    // eslint-disable-next-line no-alert
-    alert('При загрузке произошла ошибка');
+    showAlertError('При загрузке произошла ошибка');
   });
 
-setAdFormSubmit(clearAdForm);
+
+setAdFormSubmit(resetAdForm);
 
 adFormValidate();
 formPageDisable();

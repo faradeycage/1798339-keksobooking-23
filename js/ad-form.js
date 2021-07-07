@@ -1,4 +1,5 @@
 import {showAlertError, showAlertSuccess} from './utils.js';
+import {MAIN_PIN_LAT, MAIN_PIN_LNG} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -10,6 +11,10 @@ const ALLOWED_GUESTS_FOR_ROOMS = {
   '3': ['1', '2', '3'],
   '100': ['0'],
 };
+
+
+const address = document.querySelector('#address');
+address.value = `${MAIN_PIN_LAT  }, ${  MAIN_PIN_LNG}`;
 
 const adFormValidate = () => {
   const adTitleInput = document.querySelector('#title');
@@ -103,16 +108,11 @@ const formPageActivate = () => {
 };
 
 //все заполненные поля возвращаются в изначальное состояние
-const clearAdForm = () => {
-  const adForm = document.querySelector('.ad-form');
-  adForm.reset();
+const resetAdForm = () => {
+  document.querySelector('.ad-form').reset();
+  // eslint-disable-next-line no-use-before-define
+  document.querySelector('#address').value = `${MAIN_PIN_LAT  }, ${  MAIN_PIN_LNG}`;
 };
-
-//очистка формы нажатием кнопки Очистить
-const adFormReset = document.querySelector('.ad-form__reset');
-adFormReset.addEventListener('submit', () => {
-  clearAdForm();
-});
 
 //отправка формы
 const setAdFormSubmit = (onSuccess) => {
@@ -147,5 +147,5 @@ export {
   formPageDisable,
   formPageActivate,
   setAdFormSubmit,
-  clearAdForm
+  resetAdForm
 };

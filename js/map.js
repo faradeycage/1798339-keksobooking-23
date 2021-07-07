@@ -3,12 +3,11 @@ import {
 } from './ad-form.js';
 
 import {
-  getAds
-} from './data.js';
-
-import {
   createAdPopup
 } from './create-ad-popup.js';
+
+const MAIN_PIN_LAT = 35.6895;
+const MAIN_PIN_LNG = 139.692;
 
 const showMap = (ads) => {
   const map = L.map('map-canvas')
@@ -16,9 +15,9 @@ const showMap = (ads) => {
       formPageActivate();
     })
     .setView({
-      lat: 35.6895,
-      lng: 139.692,
-    }, 8);
+      lat: MAIN_PIN_LAT,
+      lng: MAIN_PIN_LNG,
+    }, 12);
 
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -33,8 +32,8 @@ const showMap = (ads) => {
   });
 
   const mainPinMarker = L.marker({
-    lat: 35.6895,
-    lng: 139.692,
+    lat: MAIN_PIN_LAT,
+    lng: MAIN_PIN_LNG,
   }, {
     draggable: true,
     icon: mainPinIcon,
@@ -54,7 +53,7 @@ const showMap = (ads) => {
     iconAnchor: [20, 40],
   });
 
-  getAds(ads);
+
   for (const ad of ads) {
     const adPinMarker = L.marker({
       lat: ad.location.lat,
@@ -71,4 +70,4 @@ const showMap = (ads) => {
   }
 };
 
-export {showMap};
+export {showMap, MAIN_PIN_LAT, MAIN_PIN_LNG};

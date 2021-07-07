@@ -23,8 +23,11 @@ const getRandomIntInclusive = (min, max) => {
 const getRandomItem = (items) => items[getRandomIntInclusive(0, items.length - 1)];
 
 //сообщение об ошибке
-const showAlertError = () => {
+const showAlertError = (error) => {
   const alertContainer = document.querySelector('#error').content.cloneNode(true).firstElementChild;
+  if (error){
+    alertContainer.querySelector('.error__message').textContent = error;
+  }
   document.body.append(alertContainer);
 
   const closeOnEsc = (evt) => {
