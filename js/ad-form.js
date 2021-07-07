@@ -1,3 +1,5 @@
+import {showAlertError, showAlertSuccess} from './utils.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -60,8 +62,8 @@ const formPageDisable = () => {
   adForm.classList.add('ad-form--disabled');
   //Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
   document.querySelector('#title').disabled = true;
-  const adFormElements =  Array.from(adForm.querySelectorAll('.ad-form__element'));
-  for (const element of adFormElements){
+  const adFormElements = Array.from(adForm.querySelectorAll('.ad-form__element'));
+  for (const element of adFormElements) {
     element.disabled = true;
   }
 
@@ -70,7 +72,7 @@ const formPageDisable = () => {
   mapFilters.classList.add('map__filters--disabled');
 
   const mapFilterElements = Array.from(mapFilters.querySelectorAll('.map__filter'));
-  for (const element of mapFilterElements){
+  for (const element of mapFilterElements) {
     element.disabled = true;
   }
 
@@ -83,8 +85,8 @@ const formPageActivate = () => {
   adForm.classList.remove('ad-form--disabled');
   //Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
   adForm.querySelector('#title').disabled = false;
-  const adFormElements =  Array.from(adForm.querySelectorAll('.ad-form__element'));
-  for (const element of adFormElements){
+  const adFormElements = Array.from(adForm.querySelectorAll('.ad-form__element'));
+  for (const element of adFormElements) {
     element.disabled = false;
   }
 
@@ -93,15 +95,57 @@ const formPageActivate = () => {
   mapFilters.classList.remove('map__filters--disabled');
 
   const mapFilterElements = Array.from(mapFilters.querySelectorAll('.map__filter'));
-  for (const element of mapFilterElements){
+  for (const element of mapFilterElements) {
     element.disabled = false;
   }
 
   mapFilters.querySelector('#housing-features').disabled = false;
 };
 
+//все заполненные поля возвращаются в изначальное состояние
+const clearAdForm = () => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.reset();
+};
+
+//очистка формы нажатием кнопки Очистить
+const adFormReset = document.querySelector('.ad-form__reset');
+adFormReset.addEventListener('submit', () => {
+  clearAdForm();
+});
+
+//отправка формы
+const setAdFormSubmit = (onSuccess) => {
+  const adForm = document.querySelector('.ad-form');
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.target);
+    fetch(
+      ' https://23.javascript.pages.academy/keksobooking', {
+        method: 'POST',
+        body: formData,
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          onSuccess();
+          showAlertSuccess();
+        } else {
+          showAlertError();
+        }
+      })
+      .catch(() => {
+        showAlertError();
+      });
+  });
+};
+
+
 export {
   adFormValidate,
   formPageDisable,
-  formPageActivate
+  formPageActivate,
+  setAdFormSubmit,
+  clearAdForm
 };

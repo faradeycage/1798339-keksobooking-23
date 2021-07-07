@@ -116,6 +116,6 @@ const createSimilarAd = () => {
   };
 };
 
-const getAds = () => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createSimilarAd());
+const getAds = (data) => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createSimilarAd());
 
 export {getAds};

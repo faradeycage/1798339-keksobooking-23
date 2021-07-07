@@ -22,4 +22,56 @@ const getRandomIntInclusive = (min, max) => {
 
 const getRandomItem = (items) => items[getRandomIntInclusive(0, items.length - 1)];
 
-export {getRandomFloatInclusive, getRandomIntInclusive, getRandomItem};
+//сообщение об ошибке
+const showAlertError = () => {
+  const alertContainer = document.querySelector('#error').content.cloneNode(true).firstElementChild;
+  document.body.append(alertContainer);
+
+  const closeOnEsc = (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      alertContainer.remove();
+      document.removeEventListener('keydown', closeOnEsc);
+      // eslint-disable-next-line no-use-before-define
+      document.removeEventListener('click', closeOnClick);
+    }
+  };
+  const closeOnClick = () => {
+    alertContainer.remove();
+    document.removeEventListener('keydown', closeOnEsc);
+    document.removeEventListener('click', closeOnClick);
+  };
+
+
+  //закрытие сообщения об ошибке по нажатию Esc
+  document.addEventListener('keydown', closeOnEsc);
+
+  //закрытие сообщения об ошибке по клику в свободную область
+  document.addEventListener('click', closeOnClick);
+};
+
+//сообщение об успехе
+const showAlertSuccess = () => {
+  const alertContainer = document.querySelector('#success').content.cloneNode(true).firstElementChild;
+  document.body.append(alertContainer);
+
+  //закрытие сообщения об успехе по нажатию Esc
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      alertContainer.remove();
+    }
+  });
+
+  //закрытие сообщения об успехе по клику в свободную область
+  document.addEventListener('click', () => {
+    alertContainer.remove();
+  });
+};
+
+
+export {
+  getRandomFloatInclusive,
+  getRandomIntInclusive,
+  getRandomItem,
+  showAlertError,
+  showAlertSuccess
+};

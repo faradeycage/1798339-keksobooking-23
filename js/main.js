@@ -1,10 +1,26 @@
-import {getAds} from './data.js';
-import {adFormValidate, formPageDisable} from './ad-form.js';
-import {showMap} from './map.js';
+import {
+  adFormValidate,
+  formPageDisable,
+  setAdFormSubmit,
+  clearAdForm
+} from './ad-form.js';
+import {
+  showMap
+} from './map.js';
 
 
-// eslint-disable-next-line no-unused-vars
-const similarAds = getAds();
+fetch('https://23.javascript.pages.academy/keksobooking/data')
+  .then((response) => response.json())
+  .then((data) => {
+    showMap(data);
+  })
+  .catch(() => {
+    // eslint-disable-next-line no-alert
+    alert('При загрузке произошла ошибка');
+  });
+
+setAdFormSubmit(clearAdForm);
+
 adFormValidate();
 formPageDisable();
-showMap(similarAds);
+
