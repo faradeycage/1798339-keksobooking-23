@@ -116,6 +116,7 @@ const createSimilarAd = () => {
   };
 };
 
+// eslint-disable-next-line no-unused-vars
 const getAds = (data) => new Array(SIMILAR_ADS_COUNT).fill(null).map(() => createSimilarAd());
 
 export {getAds};
