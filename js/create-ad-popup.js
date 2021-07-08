@@ -67,12 +67,13 @@ const createAdPopup = (info) => {
   //В список .popup__features выведите все доступные удобства в объявлении.
   const popupFeatures = template.querySelector('.popup__features');
   popupFeatures.innerHTML = '';
-  for (let idx =0; idx <  info.offer.features.length; idx++){
+  const length = info.offer.features ? info.offer.features.length : 0;
+  for (let idx =0; idx < length; idx++){
     const popupFeature = document.createElement('li');
     popupFeature.classList.add('popup__feature', `popup__feature--${info.offer.features[idx]}`);
     popupFeatures.appendChild(popupFeature);
   }
-  if (info.offer.features.length < 1) {
+  if (length < 1) {
     popupFeatures.classList.add('hidden');
   }
 

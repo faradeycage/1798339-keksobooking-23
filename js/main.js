@@ -1,10 +1,29 @@
-import {getAds} from './data.js';
-import {adFormValidate, formPageDisable} from './ad-form.js';
-import {showMap} from './map.js';
+import {
+  adFormValidate,
+  formPageDisable,
+  setAdFormSubmit,
+  resetAdForm
+} from './ad-form.js';
+import {
+  getAds
+} from './server.js';
+import {
+  showMap
+} from './map.js';
+import {
+  showAlertError
+} from './utils.js';
+
+getAds()
+  .then((data) => showMap(data))
+
+  .catch(() => {
+    showAlertError('При загрузке произошла ошибка');
+  });
 
 
-// eslint-disable-next-line no-unused-vars
-const similarAds = getAds();
+setAdFormSubmit(resetAdForm);
+
 adFormValidate();
 formPageDisable();
-showMap(similarAds);
+
